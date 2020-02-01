@@ -23,7 +23,7 @@ public class BuyBuilding : MonoBehaviour
     {
         string name = EventSystem.current.currentSelectedGameObject.name;
         int id = BuildingID(name);
-        float currentCookie = GlobalCookie.cookieCount;
+        double currentCookie = GlobalCookie.cookieCount;
         int buildingPrice = GlobalBuilding.buildingArr[id].currentPrice;
         if (id != -1 && currentCookie >= buildingPrice)
         {

@@ -6,22 +6,30 @@ using TMPro;
 
 public class GlobalCookie : MonoBehaviour
 {
-    public static float cookieCount = 0;
+    public static double cookieCount = 223456789;
+    public static int nOfBuildings = 9;
     public GameObject cookieDisplay;
     public GameObject CPSDisplay;
     public GameObject plusOne;
     public GameObject plusOneParent;
-    float internalCookie = 0;
+    double internalCookie = 0;
     public float CPS = 0;
     int cursorNum;
-    float period;
+
+    //以下待改
+    float period = 0;
     float nextActionTime;
+    //以上待改
 
     private void Update()
     {
         internalCookie = cookieCount;
         cookieDisplay.GetComponent<Text>().text = cookieCount.ToString("n0");
 
+        CPS += GlobalBuilding.buildingArr[0].CPS;
+        CPSDisplay.GetComponent<TextMeshProUGUI>().text = "Cookies / Second : " + CPS.ToString("n2");
+
+        //以下待改
         CPS = 0;
         for (int i = 1; i < GlobalBuilding.buildingArr.Count; i++)
         {
@@ -45,18 +53,18 @@ public class GlobalCookie : MonoBehaviour
             cookieCount += 1;
             CursorAnim();
         }
-
+        //以上待改
     }
 
     public void CursorAnim()
     {
         GameObject plusOneBox = new GameObject();
         plusOneBox.name = "plusOneBox";
-        plusOneBox.transform.parent = plusOneParent.transform;
+        plusOneBox.transform.SetParent(plusOneParent.transform);
         plusOneBox.transform.position = plusOneParent.transform.position + new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), 0);
 
         GameObject newPlusOne = Instantiate(plusOne);
-        newPlusOne.transform.parent = plusOneBox.transform;
+        newPlusOne.transform.SetParent(plusOneBox.transform);
         Destroy(plusOneBox, 2.0f);
     }
 }
